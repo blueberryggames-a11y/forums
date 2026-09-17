@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Arcadia — Community</title>
+  <meta name="description" content="A modern community forum.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="#"><span class="brand-mark"><span class="material-icons-round">forum</span></span><span>Arcadia</span></a>
+    <div class="top-actions">
+      <label class="search glass-soft"><span class="material-icons-round">search</span><input id="search" placeholder="Search discussions..." autocomplete="off"></label>
+      <button id="themeBtn" class="icon-btn glass-soft" title="Toggle appearance"><span class="material-icons-round">dark_mode</span></button>
+      <button id="loginBtn" class="profile-btn glass-soft"><span class="avatar">?</span><span id="accountText">Sign in</span></button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar glass">
+      <div class="section-label">Browse</div>
+      <button class="nav-item active" data-filter="all"><span class="material-icons-round">home</span>Home</button>
+      <button class="nav-item" data-filter="popular"><span class="material-icons-round">local_fire_department</span>Popular</button>
+      <button class="nav-item" data-filter="recent"><span class="material-icons-round">schedule</span>Recent</button>
+      <div class="section-label">Categories</div>
+      <button class="nav-item" data-filter="gaming"><span class="material-icons-round">sports_esports</span>Gaming</button>
+      <button class="nav-item" data-filter="development"><span class="material-icons-round">code</span>Development</button>
+      <button class="nav-item" data-filter="off-topic"><span class="material-icons-round">chat_bubble_outline</span>Off-topic</button>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-note"><span class="material-icons-round">verified_user</span><div><b>Verified posting</b><small>Posting is restricted to approved accounts.</small></div></div>
+    </aside>
+
+    <main class="feed">
+      <div class="feed-head">
+        <div><p class="eyebrow">COMMUNITY</p><h1>Latest discussions</h1><p class="muted">Share ideas, ask questions, and talk about games.</p></div>
+        <button id="newPostBtn" class="primary glass"><span class="material-icons-round">add</span>New post</button>
+      </div>
+      <div id="posts" class="posts"></div>
+      <div id="empty" class="empty glass hidden"><span class="material-icons-round">search_off</span><h3>No posts found</h3><p>Try a different search or category.</p></div>
+    </main>
+
+    <aside class="rightbar">
+      <div class="card glass">
+        <div class="card-title"><span>Community</span><span class="live-dot"></span></div>
+        <div class="stats"><div><strong id="postCount">0</strong><small>Posts</small></div><div><strong id="memberCount">2</strong><small>Verified posters</small></div></div>
+      </div>
+      <div class="card glass">
+        <div class="card-title">Guidelines <span class="material-icons-round small-icon">info</span></div>
+        <ul class="rules"><li>Keep discussions constructive.</li><li>Use clear titles and descriptions.</li><li>Respect other community members.</li></ul>
+      </div>
+    </aside>
+  </div>
+
+  <div id="loginModal" class="modal hidden"><div class="modal-card glass"><button class="close icon-btn" data-close="loginModal"><span class="material-icons-round">close</span></button><div class="modal-icon"><span class="material-icons-round">lock_open</span></div><h2>Sign in to post</h2><p class="muted">Use Google sign-in with an approved account.</p><button id="googleBtn" class="google-btn"><span class="material-icons-round">account_circle</span>Continue with Google</button><p id="loginError" class="error"></p></div></div>
+
+  <div id="postModal" class="modal hidden"><div class="modal-card glass post-modal"><button class="close icon-btn" data-close="postModal"><span class="material-icons-round">close</span></button><p class="eyebrow">NEW DISCUSSION</p><h2>Create a post</h2><form id="postForm"><label>Title<input id="postTitle" maxlength="120" required placeholder="What do you want to discuss?"></label><label>Category<select id="postCategory"><option value="gaming">Gaming</option><option value="development">Development</option><option value="off-topic">Off-topic</option></select></label><label>Content<textarea id="postContent" maxlength="5000" required placeholder="Write your post..."></textarea></label><label>Image <span class="muted">(optional)</span><input id="postImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label><div id="imagePreview" class="image-preview hidden"></div><button class="primary" type="submit"><span class="material-icons-round">publish</span>Publish post</button><p id="postError" class="error"></p></form></div></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
