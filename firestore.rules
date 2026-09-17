@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isApproved() {
+      return request.auth != null &&
+        request.auth.token.email != null &&
+        request.auth.token.email.lower() in [
+          "30copallock@pulaskischools.org",
+          "blueberryggames@gmail.com"
+        ];
+    }
+
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email != null &&
+        request.auth.token.email.lower() in [
+          "30copallock@pulaskischools.org",
+          "blueberryggames@gmail.com"
+        ];
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if isApproved()
+        && request.resource.data.authorEmail == request.auth.token.email.lower();
+
+      allow update: if
+        (isApproved() &&
+         request.resource.data.authorEmail == resource.data.authorEmail &&
+         (
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             "likesCount", "likedBy"
+           ])
+           ||
+           (request.auth.token.email.lower() == resource.data.authorEmail &&
+            request.resource.data.diff(resource.data).affectedKeys().hasOnly(["pinned"]))
+         ));
+
+      // Deletion is restricted to the explicit admin list above.
+      allow delete: if isAdmin();
+    }
+  }
+}
